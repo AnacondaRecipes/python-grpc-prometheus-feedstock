@@ -1,0 +1,47 @@
+{% set name = "python-grpc-prometheus" %}
+{% set version = "0.2.0" %}
+
+package:
+  name: {{ name|lower }}
+  version: {{ version }}
+
+source:
+  url: https://pypi.io/packages/source/{{ name[0] }}/{{ name }}/{{ name.replace('-', '_') }}-{{ version }}.tar.gz
+  sha256: 9dcc3bec8d3b5ced4381b8b13c224d3c499b6957e09b1edd4dbea6832e80f7d3
+
+build:
+  number: 0
+  script: {{ PYTHON }} -m pip install . -vv --no-deps --no-build-isolation
+
+requirements:
+  host:
+    - python
+    - pip
+    - wheel
+    - setuptools >=39.0.1
+  run:
+    - python
+    - grpcio
+    - prometheus_client >=0.3.1
+
+test:
+  imports:
+    - python_grpc_prometheus
+  commands:
+    - pip check
+  requires:
+    - pip
+
+about:
+  home: https://github.com/zhyon404/python-grpc-prometheus
+  summary: Python gRPC Prometheus Interceptors
+  license: MIT
+  license_family: MIT
+  license_file: LICENSE
+  description: similar to https://github.com/grpc-ecosystem/go-grpc-prometheus in python.
+  dev_url: https://github.com/zhyon404/python-grpc-prometheus
+  doc_url: https://github.com/zhyon404/python-grpc-prometheus/blob/master/README.md
+
+extra:
+  recipe-maintainers:
+    - snegireff
